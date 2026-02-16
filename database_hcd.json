@@ -1,0 +1,406 @@
+{
+    "patients": {
+        "202": {
+            "id": "202",
+            "family_name": "García",
+            "given_name": "Ana",
+            "gender": "female",
+            "birthDate": "1985-10-20",
+            "medical_summary": "Control de rutina"
+        },
+        "P001": {
+            "id": "P001",
+            "family_name": "Gomez",
+            "given_name": "Carlos",
+            "gender": "male",
+            "birthDate": "1985-04-12",
+            "medical_summary": "Evaluación Hemograma completo"
+        },
+        "P002": {
+            "id": "P002",
+            "family_name": "Rodriguez",
+            "given_name": "Maria",
+            "gender": "female",
+            "birthDate": "1992-08-25",
+            "medical_summary": "Control Anemia - Hematocrito"
+        },
+        "P003": {
+            "id": "P003",
+            "family_name": "Martinez",
+            "given_name": "Luis",
+            "gender": "male",
+            "birthDate": "1970-11-02",
+            "medical_summary": "Parcial de Orina solicitado"
+        },
+        "P004": {
+            "id": "P004",
+            "family_name": "Lopez",
+            "given_name": "Elena",
+            "gender": "female",
+            "birthDate": "1998-01-30",
+            "medical_summary": "Control de Glucosa"
+        },
+        "P005": {
+            "id": "P005",
+            "family_name": "Sánchez",
+            "given_name": "Ricardo",
+            "gender": "male",
+            "birthDate": "1965-06-15",
+            "medical_summary": "Perfil lipídico"
+        },
+        "P006": {
+            "id": "P006",
+            "family_name": "Torres",
+            "given_name": "Ana",
+            "gender": "female",
+            "birthDate": "2000-03-10",
+            "medical_summary": "Control post-infección"
+        },
+        "P007": {
+            "id": "P007",
+            "family_name": "Ramirez",
+            "given_name": "Jorge",
+            "gender": "male",
+            "birthDate": "1988-09-22",
+            "medical_summary": "Seguimiento Renal"
+        },
+        "P101": {
+            "id": "P101",
+            "family_name": "Méndez",
+            "given_name": "Lucía",
+            "gender": "female",
+            "birthDate": "1960-05-12",
+            "medical_summary": "Monitoreo Diabetes Tipo 2"
+        },
+        "P102": {
+            "id": "P102",
+            "family_name": "Diaz",
+            "given_name": "Roberto",
+            "gender": "male",
+            "birthDate": "1995-08-20",
+            "medical_summary": "Urgencias - Síndrome Febril"
+        },
+        "P103": {
+            "id": "P103",
+            "family_name": "Ruiz",
+            "given_name": "Carmen",
+            "gender": "female",
+            "birthDate": "1955-11-30",
+            "medical_summary": "Insuficiencia Renal Crónica"
+        },
+        "P104": {
+            "id": "P104",
+            "family_name": "Solis",
+            "given_name": "Javier",
+            "gender": "male",
+            "birthDate": "1978-02-14",
+            "medical_summary": "Riesgo Cardiovascular Alto"
+        },
+        "P105": {
+            "id": "P105",
+            "family_name": "Vega",
+            "given_name": "Marta",
+            "gender": "female",
+            "birthDate": "2001-07-09",
+            "medical_summary": "Estudio de Anemia"
+        },
+        "string": {
+            "id": "string",
+            "family_name": "string",
+            "given_name": "string",
+            "gender": "string",
+            "birthDate": "string",
+            "medical_summary": "string"
+        },
+        "PX200": {
+            "id": "PX200",
+            "family_name": "Prueba",
+            "given_name": "Carlos",
+            "gender": "male",
+            "birthDate": "2001-05-10",
+            "medical_summary": "Paciente creado desde Swagger"
+        }
+    },
+    "observations": [
+        {
+            "id": "obs-1",
+            "patient_id": "P001",
+            "category": "laboratory",
+            "code": "6690-2",
+            "display": "Leucocitos (Hemograma)",
+            "value": 7.5,
+            "unit": "10^3/uL",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-2",
+            "patient_id": "P002",
+            "category": "laboratory",
+            "code": "4544-3",
+            "display": "Hematocrito",
+            "value": 31.5,
+            "unit": "%",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-3",
+            "patient_id": "P003",
+            "category": "laboratory",
+            "code": "2339-0",
+            "display": "Densidad (Orina)",
+            "value": 1.02,
+            "unit": "sg",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-4",
+            "patient_id": "P006",
+            "category": "laboratory",
+            "code": "6690-2",
+            "display": "Hemoglobina",
+            "value": 11.2,
+            "unit": "g/dL",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-5",
+            "patient_id": "P001",
+            "category": "laboratory",
+            "code": "2339-0",
+            "display": "Glucosa Basal",
+            "value": 95.0,
+            "unit": "mg/dL",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-6",
+            "patient_id": "P101",
+            "category": "laboratory",
+            "code": "2339-0",
+            "display": "Glucosa en Ayunas",
+            "value": 145.0,
+            "unit": "mg/dL",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-7",
+            "patient_id": "P101",
+            "category": "laboratory",
+            "code": "4548-4",
+            "display": "Hemoglobina Glicosilada (HbA1c)",
+            "value": 7.8,
+            "unit": "%",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-8",
+            "patient_id": "P101",
+            "category": "vital-signs",
+            "code": "29463-7",
+            "display": "Peso Corporal",
+            "value": 82.5,
+            "unit": "kg",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-9",
+            "patient_id": "P102",
+            "category": "laboratory",
+            "code": "6690-2",
+            "display": "Leucocitos",
+            "value": 16.5,
+            "unit": "10^3/uL",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-10",
+            "patient_id": "P102",
+            "category": "laboratory",
+            "code": "1988-5",
+            "display": "Proteína C Reactiva",
+            "value": 45.0,
+            "unit": "mg/L",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-11",
+            "patient_id": "P102",
+            "category": "vital-signs",
+            "code": "8310-5",
+            "display": "Temperatura Corporal",
+            "value": 39.2,
+            "unit": "C",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-12",
+            "patient_id": "P103",
+            "category": "laboratory",
+            "code": "2160-0",
+            "display": "Creatinina Sérica",
+            "value": 2.4,
+            "unit": "mg/dL",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-13",
+            "patient_id": "P103",
+            "category": "laboratory",
+            "code": "3094-0",
+            "display": "Nitrógeno Ureico (BUN)",
+            "value": 45.0,
+            "unit": "mg/dL",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-14",
+            "patient_id": "P103",
+            "category": "laboratory",
+            "code": "2823-3",
+            "display": "Potasio Sérico",
+            "value": 5.8,
+            "unit": "mmol/L",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-15",
+            "patient_id": "P104",
+            "category": "laboratory",
+            "code": "2093-3",
+            "display": "Colesterol Total",
+            "value": 280.0,
+            "unit": "mg/dL",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-16",
+            "patient_id": "P104",
+            "category": "laboratory",
+            "code": "2571-8",
+            "display": "Triglicéridos",
+            "value": 210.0,
+            "unit": "mg/dL",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-17",
+            "patient_id": "P104",
+            "category": "vital-signs",
+            "code": "8480-6",
+            "display": "Presión Arterial Sistólica",
+            "value": 150.0,
+            "unit": "mmHg",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-18",
+            "patient_id": "P105",
+            "category": "laboratory",
+            "code": "718-7",
+            "display": "Hemoglobina",
+            "value": 9.8,
+            "unit": "g/dL",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-19",
+            "patient_id": "P105",
+            "category": "laboratory",
+            "code": "2276-4",
+            "display": "Ferritina",
+            "value": 12.0,
+            "unit": "ng/mL",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-20",
+            "patient_id": "P105",
+            "category": "laboratory",
+            "code": "4544-3",
+            "display": "Hematocrito",
+            "value": 30.0,
+            "unit": "%",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-21",
+            "patient_id": "P101",
+            "category": "laboratory",
+            "code": "2339-0",
+            "display": "Glucosa en Ayunas",
+            "value": 97.0,
+            "unit": "mg/dL",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-22",
+            "patient_id": "P101",
+            "category": "laboratory",
+            "code": "2339-0",
+            "display": "Glucosa en Ayunas",
+            "value": 110.5,
+            "unit": "mg/dL",
+            "date": "2026-01-25"
+        },
+        {
+            "id": "obs-23",
+            "patient_id": "P101",
+            "category": "laboratory",
+            "code": "2339-0",
+            "display": "Glucosa en Ayunas",
+            "value": 111.0,
+            "unit": "mg/dL",
+            "date": "2026-01-10"
+        },
+        {
+            "id": "obs-24",
+            "patient_id": "P101",
+            "category": "laboratory",
+            "code": "2339-0",
+            "display": "Glucosa en Ayunas",
+            "value": 131.0,
+            "unit": "mg/dL",
+            "date": "2025-12-11"
+        },
+        {
+            "id": "obs-25",
+            "patient_id": "P102",
+            "category": "vital-signs",
+            "code": "8310-5",
+            "display": "Temperatura Corporal",
+            "value": 390.0,
+            "unit": "C",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-26",
+            "patient_id": "P102",
+            "category": "vital-signs",
+            "code": "8310-5",
+            "display": "Temperatura Corporal",
+            "value": 390.0,
+            "unit": "C",
+            "date": "2026-02-09"
+        },
+        {
+            "id": "obs-27",
+            "patient_id": "P102",
+            "category": "vital-signs",
+            "code": "8310-5",
+            "display": "Temperatura Corporal",
+            "value": 39.0,
+            "unit": "C",
+            "date": "2026-02-09"
+        },
+        {
+            "patient_id": "PX200",
+            "category": "vital-signs",
+            "code": "8310-5",
+            "display": "Temperatura Corporal",
+            "value": 38.3,
+            "unit": "C",
+            "date": "2026-03-01",
+            "id": "c15c85bd-b5e7-4c92-b424-e75ed7ae87d1"
+        }
+    ]
+}
