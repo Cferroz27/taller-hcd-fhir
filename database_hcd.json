@@ -104,14 +104,6 @@
             "birthDate": "2001-07-09",
             "medical_summary": "Estudio de Anemia"
         },
-        "string": {
-            "id": "string",
-            "family_name": "string",
-            "given_name": "string",
-            "gender": "string",
-            "birthDate": "string",
-            "medical_summary": "string"
-        },
         "PX200": {
             "id": "PX200",
             "family_name": "Prueba",
@@ -119,6 +111,22 @@
             "gender": "male",
             "birthDate": "2001-05-10",
             "medical_summary": "Paciente creado desde Swagger"
+        },
+        "200": {
+            "id": "200",
+            "family_name": "Gómez",
+            "given_name": "Laura",
+            "gender": "female",
+            "birthDate": "1995-08-12",
+            "medical_summary": "Sin antecedentes"
+        },
+        "210": {
+            "id": "210",
+            "family_name": "Herrera",
+            "given_name": "Natalia",
+            "gender": "female",
+            "birthDate": "1997-08-12",
+            "medical_summary": "Sin antecedentes"
         }
     },
     "observations": [
