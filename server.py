@@ -1,11 +1,11 @@
 # ===============================================
-# SERVIDOR CENTRAL FHIR-LITE PARA TALLER HCD v3.1
+# SERVIDOR CENTRAL FHIR-LITE PARA TALLER HCD v3.2
 # ===============================================
 
-from fastapi import FastAPI, HTTPException, Header, Depends, Query
+from fastapi import FastAPI, HTTPException, Header, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, validator
-from typing import List, Optional
+from typing import Optional
 import json
 import os
 import uuid
@@ -17,7 +17,7 @@ from datetime import datetime, date
 
 app = FastAPI(
     title="Servidor Central FHIR-Lite",
-    version="3.1",
+    version="3.2",
     description="Nodo de interoperabilidad académica con auditoría clínica"
 )
 
@@ -44,48 +44,88 @@ def verify_api_key(x_api_key: str = Header(...)):
 # UTILIDADES DE BASE DE DATOS
 # -----------------------------------------------
 
-def initialize_db():
-    if not os.path.exists(DATABASE_FILE):
-        data = {
-            "patients": {},
-            "observations": [],
-            "logs": []
-        }
-        save_db(data)
+def get_empty_db():
+    """Retorna estructura vacía de DB"""
+    return {"patients": {}, "observations": [], "logs": []}
 
-### CAMBIO CRÍTICO 1: Manejo de errores en load_db ###
-# Antes: json.load(f) fallaba si el archivo estaba corrupto o vacío.
-# Ahora: Si hay basura en el JSON, devuelve una estructura limpia en lugar de colapsar (Error 500).
+def initialize_db():
+    """Crea el archivo DB si no existe"""
+    if not os.path.exists(DATABASE_FILE):
+        save_db(get_empty_db())
+
 def load_db():
-    initialize_db()
+    """Carga DB con manejo robusto de errores"""
     try:
+        # Intentar cargar el archivo
+        if not os.path.exists(DATABASE_FILE):
+            initialize_db()
+            
         with open(DATABASE_FILE, "r", encoding="utf-8") as f:
             content = f.read().strip()
+            
+            # Si está vacío, devolver estructura limpia
             if not content:
-                return {"patients": {}, "observations": [], "logs": []}
-            return json.loads(content)
-    except (json.JSONDecodeError, FileNotFoundError, Exception):
-        # Reinicia la estructura en memoria si el archivo físico está roto
-        return {"patients": {}, "observations": [], "logs": []}
+                clean_db = get_empty_db()
+                save_db(clean_db)
+                return clean_db
+            
+            # Intentar parsear JSON
+            db = json.loads(content)
+            
+            # Validar estructura mínima
+            if not isinstance(db, dict):
+                raise ValueError("DB no es un diccionario")
+            
+            # Asegurar que existan las claves necesarias
+            if "patients" not in db:
+                db["patients"] = {}
+            if "observations" not in db:
+                db["observations"] = []
+            if "logs" not in db:
+                db["logs"] = []
+                
+            return db
+            
+    except (json.JSONDecodeError, ValueError, KeyError, Exception) as e:
+        # Si hay cualquier error, reiniciar DB y registrar en logs
+        print(f"⚠️ Error al cargar DB: {str(e)}. Reiniciando...")
+        clean_db = get_empty_db()
+        save_db(clean_db)
+        return clean_db
 
 def save_db(data):
-    with open(DATABASE_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
+    """Guarda DB con validación"""
+    try:
+        # Validar estructura antes de guardar
+        if not isinstance(data, dict):
+            raise ValueError("Los datos deben ser un diccionario")
+        
+        # Escribir con formato legible
+        with open(DATABASE_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+            
+    except Exception as e:
+        print(f"❌ Error al guardar DB: {str(e)}")
+        raise HTTPException(500, f"Error al guardar en base de datos: {str(e)}")
 
 # -----------------------------------------------
 # LOGS CLÍNICOS (AUDITORÍA)
 # -----------------------------------------------
 
 def log_event(action, resource, resource_id):
-    db = load_db()
-    log_entry = {
-        "timestamp": datetime.utcnow().isoformat(),
-        "action": action,
-        "resource": resource,
-        "resource_id": resource_id
-    }
-    db["logs"].append(log_entry)
-    save_db(db)
+    """Registra evento con manejo de errores"""
+    try:
+        db = load_db()
+        log_entry = {
+            "timestamp": datetime.utcnow().isoformat(),
+            "action": action,
+            "resource": resource,
+            "resource_id": resource_id
+        }
+        db["logs"].append(log_entry)
+        save_db(db)
+    except Exception as e:
+        print(f"⚠️ Error al registrar log: {str(e)}")
 
 # -----------------------------------------------
 # MODELOS
@@ -134,6 +174,29 @@ class Observation(BaseModel):
 # ENDPOINTS FHIR
 # ===============================================
 
+@app.get("/")
+def root():
+    """Endpoint de salud del servicio"""
+    return {
+        "status": "ok",
+        "message": "Servidor FHIR-Lite activo",
+        "version": "3.2"
+    }
+
+@app.get("/health")
+def health_check():
+    """Verifica que la DB sea accesible"""
+    try:
+        db = load_db()
+        return {
+            "status": "healthy",
+            "patients": len(db.get("patients", {})),
+            "observations": len(db.get("observations", [])),
+            "logs": len(db.get("logs", []))
+        }
+    except Exception as e:
+        raise HTTPException(500, f"Error de salud: {str(e)}")
+
 @app.get("/fhir/Patient", dependencies=[Depends(verify_api_key)])
 def get_patients(page: int = 1, size: int = 10):
     db = load_db()
@@ -177,9 +240,6 @@ def update_patient(patient_id: str, patient: Patient):
     log_event("PUT", "Patient", patient_id)
     return {"mensaje": "Paciente actualizado"}
 
-### CAMBIO CRÍTICO 2: Validación en PATCH ###
-# Antes: Mezclaba datos y guardaba sin validar, dejando basura como "string" en la DB.
-# Ahora: Valida el objeto final contra el modelo Patient antes de escribir.
 @app.patch("/fhir/Patient/{patient_id}", dependencies=[Depends(verify_api_key)])
 def patch_patient(patient_id: str, updates: PatientUpdate):
     db = load_db()
@@ -231,14 +291,9 @@ def create_observation(observation: Observation):
     db["observations"].append(new_obs)
     save_db(db)
     log_event("CREATE", "Observation", new_obs["id"])
-    return {"mensaje": "Observación registrada"}
+    return {"mensaje": "Observación registrada", "id": new_obs["id"]}
 
 @app.get("/logs", dependencies=[Depends(verify_api_key)])
 def get_logs():
     db = load_db()
     return db["logs"]
-
-
-
-
-
