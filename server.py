@@ -303,11 +303,7 @@ def get_logs():
     db = load_db()
     return db["logs"]
 
-# -----------------------------------------------
-# EJECUCIÓN DEL SERVIDOR
-# -----------------------------------------------
 
-if __name__ == "__main__": 
-    app = FastAPI()
+
 
 
